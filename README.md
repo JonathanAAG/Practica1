@@ -56,6 +56,30 @@ Participants will simulate development scenarios that lead to conflicts, requiri
 Se genero un conflicto entre dos ramas
 ![alt text](Imagenes/conflicto.png)
 
+Se valida que la rama developmet este actualizada y se realizan los siguientes comandos:
+
+``` 
+git checkout feature/gitflow
+git merge development
+git status
+```
+
+Se resuelven los conflictos en los archivos 
+
+![alt text](Imagenes/resolve.png)
+
+
+Se agrega el cambio con los conflictos resueltos
+``` 
+git status
+git add -A
+git commit -m "conflictos resueltos"
+git push origin feature/gitflow
+```
+Ejemplo ejecucion de comandos: 
+
+![alt text](Imagenes/conflictoCommand.png)
+
 
 # Task 3
 In this exercise, participants will create pull requests to integrate changes from their feature branches into the main branch. They will then conduct code reviews, applying the best practices covered in the lessons.
