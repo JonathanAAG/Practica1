@@ -39,3 +39,31 @@ git checkout -b feature/gitflow
 git add -A
 git commit -m "gitflow"
 git push origin feature/gitflow
+
+``` 
+
+![alt text](Imagenes/Practica1.1.png)
+
+
+
+
+# Task 2
+Participants will simulate development scenarios that lead to conflicts, requiring them to choose between merging and rebasing to resolve these issues.
+
+
+### Resultados
+
+Se genero un conflicto entre dos ramas
+![alt text](Imagenes/conflicto.png)
+
+
+# Task 3
+In this exercise, participants will create pull requests to integrate changes from their feature branches into the main branch. They will then conduct code reviews, applying the best practices covered in the lessons.
+
+
+### Resultados
+Se genero un PR y se asigno a otro colaborador
+![alt text](Imagenes/PR.png)
+
+Se realizo feedback
+![alt text](Imagenes/Comentario.png)
