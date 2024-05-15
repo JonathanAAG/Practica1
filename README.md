@@ -7,7 +7,7 @@ Initialize a new repository and simulate a continuous integration environment by
 ### Resultados
 **Se inicializo un nuevo repositorio**
 
-![!\[alt text\](image.png)](image.png)
+![!\[alt text\](image.png)](Imagenes/image.png)
 
 Se realizaron los siguientes comandos: 
 ``` 
@@ -45,7 +45,13 @@ git push origin feature/gitflow
 ![alt text](Imagenes/Practica1.1.png)
 
 
+Se genera un PR de con los cambios de la rama feature hacia development
 
+![alt text](Imagenes/PRDEV.png)
+
+Se genera un PR de los cambios de development a la rama main
+
+![alt text](Imagenes/PRMAIN.png)
 
 # Task 2
 Participants will simulate development scenarios that lead to conflicts, requiring them to choose between merging and rebasing to resolve these issues.
