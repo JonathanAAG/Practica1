@@ -1,0 +1,101 @@
+/*
+    SPR: Se delegaron las tareas a en diferentes clases con esto la clase principal de system manager cumple con este principio
+*/
+
+class InventoryManager {
+    void verifyInventory(Order order) {
+        if (inventory < order.getQuantity()) {
+            throw new RuntimeException("Out of stock");
+        }
+    }
+}
+
+class OrderUpdater {
+    void updateOrderStatus(Order order, String status) {
+        database.updateOrderStatus(order.getId(), status);
+    }
+}
+
+/*
+ * DIP: Se llaman interfaces y no existe una dependencia directa
+ */
+
+
+class OrderProcessor {
+    private final PaymentProcessor paymentProcessor;
+    private final InventoryManager inventoryManager;
+    private final OrderUpdater orderUpdater;
+    private final NotificationService notificationService;
+    public OrderProcessor(PaymentProcessor paymentProcessor, InventoryManager inventoryManager, OrderUpdater orderUpdater, NotificationService notificationService) {
+        this.paymentProcessor = paymentProcessor;
+        this.inventoryManager = inventoryManager;
+        this.orderUpdater = orderUpdater;
+        this.notificationService = notificationService;
+    }
+    public void processOrder(Order order) {
+        inventoryManager.verifyInventory(order);
+        if (paymentProcessor.processPayment(order.getAmount())) {
+            orderUpdater.updateOrderStatus(order, "processed");
+            notificationService.notifyCustomer(order.getCustomerEmail(), "Your order has been processed.");
+        } else {
+            throw new RuntimeException("Payment failed");
+        }
+    }
+}
+
+/*
+    * LSP: si se requieren otros tipos de notificacion se realiza la sustitucion de los subtipos de manera mas eficiente
+ */
+Interface NotificationService {
+    void notifyCustomer(String customerEmail, String message);
+}
+
+/*
+ * No se obliga a otros metodos a realizar la misma implementacion
+ */
+
+class EmailNotificationService implements NotificationService {
+    public void notifyCustomer(String customerEmail, String message) {
+        emailService.sendEmail(customerEmail, message);
+    }
+
+    Interface PaymentProcessor {
+        boolean processPayment(Order order);
+    }
+/*
+ * OCP: se puede crecer la funcionalidad sin necesidad de modificar lo existente
+ */
+
+
+class StandardPaymentProcessor implements PaymentProcessor {
+    @Override
+    public boolean processPayment(double amount) {
+        return true;
+    }
+}
+class ExpressPaymentProcessor implements PaymentProcessor {
+    @Override
+    public boolean processPayment(double amount) {
+        return true;
+    }
+}
+
+
+
+class SystemManager {
+    private final OrderProcessor standardOrderProcessor;
+    private final OrderProcessor expressOrderProcessor;
+    public SystemManager(OrderProcessor standardOrderProcessor, OrderProcessor expressOrderProcessor) {
+        this.standardOrderProcessor = standardOrderProcessor;
+        this.expressOrderProcessor = expressOrderProcessor;
+    }
+    public void processOrder(Order order) {
+        if (order.getType().equals("standard")) {
+            standardOrderProcessor.processOrder(order);
+        } else if (order.getType().equals("express")) {
+            expressOrderProcessor.processOrder(order);
+        } else {
+            throw new IllegalArgumentException("Unknown order type");
+        }
+    }
+}
