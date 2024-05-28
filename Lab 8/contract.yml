@@ -1,0 +1,299 @@
+openapi: 3.0.0
+info:
+  title: API de Gestión de Usuarios, Procesamiento de Pedidos e Interacciones de Servicio al Cliente
+  version: 1.0.0
+  description: Esta API permite gestionar usuarios, procesar pedidos y gestionar tickets de servicio al cliente.
+servers:
+  - url: http://localhost:8080/api
+paths:
+  /users:
+    get:
+      summary: Obtener lista de usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Crear un nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Datos inválidos
+  /users/{userId}:
+    get:
+      summary: Obtener un usuario por ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Datos del usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+    put:
+      summary: Actualizar un usuario
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Usuario no encontrado
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Usuario eliminado exitosamente
+        '404':
+          description: Usuario no encontrado
+  /orders:
+    get:
+      summary: Obtener lista de pedidos
+      responses:
+        '200':
+          description: Lista de pedidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Crear un nuevo pedido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: Pedido creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Datos inválidos
+  /orders/{orderId}:
+    get:
+      summary: Obtener un pedido por ID
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Datos del pedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          description: Pedido no encontrado
+    put:
+      summary: Actualizar un pedido
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          description: Pedido actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Pedido no encontrado
+    delete:
+      summary: Eliminar un pedido
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Pedido eliminado exitosamente
+        '404':
+          description: Pedido no encontrado
+  /tickets:
+    get:
+      summary: Obtener lista de tickets de servicio al cliente
+      responses:
+        '200':
+          description: Lista de tickets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+    post:
+      summary: Crear un nuevo ticket de servicio al cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+      responses:
+        '201':
+          description: Ticket creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Datos inválidos
+  /tickets/{ticketId}:
+    get:
+      summary: Obtener un ticket por ID
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Datos del ticket
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '404':
+          description: Ticket no encontrado
+    put:
+      summary: Actualizar un ticket
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+      responses:
+        '200':
+          description: Ticket actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+        '400':
+          description: Datos inválidos
+        '404':
+          description: Ticket no encontrado
+    delete:
+      summary: Eliminar un ticket
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Ticket eliminado exitosamente
+        '404':
+          description: Ticket no encontrado
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        product:
+          type: string
+        quantity:
+          type: integer
+        price:
+          type: number
+          format: float
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        issue:
+          type: string
+        status:
+          type: string
